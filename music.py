@@ -4,7 +4,8 @@ import simpleaudio as sa
 fsdefault = 44100
 musicaltimedefault = 60
 
-def pot(dec=[]):
+
+def pot(dec=[]): #Convert dB to intensity coefficients 
         
         
     for index, item in enumerate(dec):
@@ -15,12 +16,54 @@ def pot(dec=[]):
 
     return dec
 
-def nor(dec = []):
+def nor(dec = []): #Normalize the vector
+    sum=0
     for i in dec:
-        g=0
-        dec[g]=i/dec[0]
-        g=g+1
+        sum = sum + i
+
+    for index, i in enumerate(dec):
+        dec[index]=i/sum
+
     return dec
+
+
+
+def play(dicinstrument={440:1}, fs = fsdefault, seconds = 3, intensity=2 ):  
+
+    # Generate array with seconds*sample_rate steps, ranging between 0 and seconds
+    t = np.linspace(0, seconds, seconds * fs, False)
+
+    # Generate a 440 Hz sine wave
+    note = 0
+    for i in dicinstrument:
+        note = note + dicinstrument[i]*np.sin(i * t * 2 * np.pi)
+
+    # Ensure that highest value is in 16-bit range
+    audio = note * (2**15 - 1) / np.max(np.abs(note))
+    
+    # Convert to 16-bit data
+    audio = audio.astype(np.int16)
+
+    # Start playback
+    play_obj = sa.play_buffer(audio, 1, 2, fs)
+
+    # Wait for playback to finish before exiting
+    play_obj.wait_done()
+
+
+def playnote(hz=440.0,instrument=[],time=3, intensity =2):
+    
+    coe = nor(instrument)  #Normalize coefficients
+
+    dicintens = {}  #Create dictionary of frequencies and coefficients
+    num=1
+    
+    for j in coe:
+        dicintens[hz*num]=j
+        num = num+1
+
+    play(dicinstrument=dicintens, seconds=time, intensity = intensity)
+
 
 class Instrument:
 
@@ -36,35 +79,6 @@ class Melody:
     work_melody_out = [622.25, 659.26, 0, 880, 659.26, 523.25, 440]
     work_times_out = [1/6, 1/6, 1/6, 1/6, 1/6, 1/6, 0.5]
 
-def play(intensity={440:1}, fs = fsdefault, seconds = 3):  
 
-    # Generate array with seconds*sample_rate steps, ranging between 0 and seconds
-    t = np.linspace(0, seconds, seconds * fs, False)
-
-    # Generate a 440 Hz sine wave
-    note = 0
-    for i in intensity:
-        note = note + intensity[i]*np.sin(i * t * 2 * np.pi)
-   
-    # Ensure that highest value is in 16-bit range
-    audio = note * (2**15 - 1) / np.max(np.abs(note))
-    
-    # Convert to 16-bit data
-    audio = audio.astype(np.int16)
-
-    # Start playback
-    play_obj = sa.play_buffer(audio, 1, 2, fs)
-
-    # Wait for playback to finish before exiting
-    play_obj.wait_done()
-
-
-def playnote(hz=440.0,coe=[],time=3):
-    dicintens = {}
-    num=1
-    #array.__len__()=coe.__len__()
-    for j in coe:
-        dicintens[hz*num]=j
-        num = num+1
-    play(intensity=dicintens, seconds=time)
+playnote(hz=220, instrument=Instrument.horn1, time=3, intensity = 0.3)
         
