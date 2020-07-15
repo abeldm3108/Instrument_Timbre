@@ -1,0 +1,7 @@
+tkinter Scale
+https://www.tutorialspoint.com/python/tk_scale.htm
+
+tkinter align pack()
+https://effbot.org/tkinterbook/pack.htm#:~:text=Pack%20Geometry%20Manager-,The%20Tkinter%20Pack%20Geometry%20Manager,inside%20the%20same%20master%20widget.
+
+

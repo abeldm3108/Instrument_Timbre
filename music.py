@@ -80,5 +80,5 @@ class Melody:
     work_times_out = [1/6, 1/6, 1/6, 1/6, 1/6, 1/6, 0.5]
 
 
-playnote(hz=220, instrument=Instrument.horn1, time=3, intensity = 0.3)
+#playnote(hz=220, instrument=Instrument.horn1, time=3, intensity = 0.3)
         
