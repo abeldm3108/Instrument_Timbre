@@ -35,7 +35,7 @@ horn1 = pot([15,18,20,17,10,11,10,8])
 
 horn2 = [0.1637, 0.3263, 0.4212, 0.2391, 0.0492, 0.0608, 0.0518, 0.0293, 0.0115, 0.0085, 0.0068, 0.0018, 0.0008, 0.001, 0.0007, 0.0008,]
 
-def playnote(freq=freq_def, duration=duration_def, instrument=[1], intensity=1, fr=fr_def, loop=False):
+def playnote(freq=freq_def, duration=duration_def, instrument=[1], intensity=1, fr=fr_def, loop=False, wait=False): #Plays the data of the armonics of instrument vector
     instrument=nor(instrument)
     each_sample_number = np.arange(duration*fr)
     wave=0
@@ -44,12 +44,15 @@ def playnote(freq=freq_def, duration=duration_def, instrument=[1], intensity=1, 
     wave=intensity*wave
     if loop:
         sd.play(wave, fr, loop=True)
+        if wait:
+            sd.wait()
     else:
         sd.play(wave,fr)
-        time.sleep(duration)
-        sd.wait()
+        if wait:
+            time.sleep(duration)
+            sd.wait()
 
-def writenote(name= "sinewave.wav", freq=freq_def, duration=duration_def, instrument=[1], intensity=1, fr=fr_def):
+def writenote(name= "sinewave.wav", freq=freq_def, duration=duration_def, instrument=[1], intensity=1, fr=fr_def):  #Creates a WAV file with the data
     instrument=nor(instrument)
     each_sample_number = np.arange(duration*fr)
     wave=0
@@ -58,6 +61,9 @@ def writenote(name= "sinewave.wav", freq=freq_def, duration=duration_def, instru
     wave=intensity*wave
     wave_ints=np.int16(wave*32767)
     write(name, fr, wave_ints)
+
+
+
 
 
 
