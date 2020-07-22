@@ -15,24 +15,21 @@ freq_def=220
 #Array of intensity of harmonics
 harmonic = np.zeros(numberofharmonics)
 
-slider=[]
-var =[]
-
-label = Label(root)
-label.pack()
-
 
 #Creating update function of sliders
 def updatelabelinfo1(val):
-   harmonic[0]=val
+   harmonic[0]=val   
+   labelvar.set(str(harmonic[0])+"   " +str(harmonic[1])+"   " +str(harmonic[2]))
    sd.stop()
    playnote(freq=freq_def, duration=maxtime, instrument=harmonic, intensity=1,loop=True)
 def updatelabelinfo2(val):
    harmonic[1]=val
+   labelvar.set(str(harmonic[0])+"   " +str(harmonic[1])+"   " +str(harmonic[2]))
    sd.stop()
    playnote(freq=freq_def, duration=maxtime, instrument=harmonic, intensity=1,loop=True)
 def updatelabelinfo3(val):
    harmonic[2]=val
+   labelvar.set(str(harmonic[0])+"   " +str(harmonic[1])+"   " +str(harmonic[2]))
    sd.stop()
    playnote(freq=freq_def, duration=maxtime, instrument=harmonic, intensity=1,loop=True)
 
@@ -56,7 +53,8 @@ for i in range(numberofharmonics):
 def updatelabelinfo1(i, val):
    label.config(text = str(val)+" in slider number "+str(i))
 
-label = Label(root,text=0)
+labelvar=StringVar()
+label = Label(root,textvariable=labelvar)
 label.pack()
 
 '''

@@ -8,6 +8,7 @@ freq_def = 440.0
 duration_def = 5.0
 
 def nor(coe = []): #Normalize the vector
+    newcoe=np.zeros(len(coe))
     sum=0
     for i in coe:
         sum = sum + i
@@ -16,12 +17,11 @@ def nor(coe = []): #Normalize the vector
         return coe
     
     for index, i in enumerate(coe):
-        coe[index]=i/sum
+        newcoe[index]=i/sum
 
-    return coe
+    return newcoe
 
 def pot(dec=[]): #Convert dB to intensity coefficients 
-        
         
     for index, item in enumerate(dec):
         if index != 0:
