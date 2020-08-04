@@ -1,0 +1,13 @@
+#Things to copy in PyQT_GUI file in case you Update it via QT Designer
+
+import actions
+
+self.sld_1.valueChanged['int'].connect(actions.lbl_1_Clicked)
+self.sld_1.valueChanged['int'].connect(actions.lbl_2_Clicked)
+self.sld_1.valueChanged['int'].connect(actions.lbl_3_Clicked)
+self.sld_1.valueChanged['int'].connect(actions.lbl_4_Clicked)
+self.sld_1.valueChanged['int'].connect(actions.lbl_5_Clicked)
+self.sld_1.valueChanged['int'].connect(actions.lbl_6_Clicked)
+self.sld_1.valueChanged['int'].connect(actions.lbl_7_Clicked)
+self.sld_1.valueChanged['int'].connect(actions.lbl_8_Clicked)
+self.sld_1.valueChanged['int'].connect(actions.lbl_9_Clicked)
